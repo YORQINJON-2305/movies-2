@@ -33,15 +33,16 @@ body{
 .search-wrap{
     display: flex;
     align-items: center;
+    margin-bottom: 20px;
 }
 
 .search-input{
     width: 100%;
-    padding: 15px 24px;
+    padding: 15px 24px !important;
     border: none;
     border-radius: 8px 0 0 8px;
     background-color: #c0c0c0;
-    font-size: 17px;
+    font-size: 17px !important;
 }
 
 .search-input::placeholder{
@@ -51,7 +52,7 @@ body{
 
 .search-btn{
     width: 100px;
-    height: 50px;
+    height: 55.5px;
     border: none;
     border-radius: 0 8px 8px 0;
     background-color: #ad6a3a;
@@ -74,25 +75,11 @@ body{
     box-shadow: 0 0 15px 0 #646060;
 }
 
-.movies-title{
+.movie-title{
     margin-top: 0;
     margin-bottom: 20px;
+    font-size: 24px;
     color: #ad6a3a;
-}
-
-.movies-year-wrap{
-    display: flex;
-    justify-content: end;
-    margin-top: 0;
-    margin-bottom: 8px;
-}
-
-.movies-year{
-    padding: 6px 12px;
-    border-radius: 20px;
-    background-color: #6b6319;
-    box-shadow: 0 0 5px 0 #6b6319;
-    color: #a6a5a5;
 }
 
 .movie-about{
@@ -107,25 +94,50 @@ body{
      color: #646060;
  }
 
-.runtime-wrap{
-    display: flex;
-    margin-bottom: 15px;
+ .movie-year{
+     color: #646060;
+ }
+
+.movie-year::before{
+    width: 18px;
+    height: 18px;
+    margin-right: 4px;
+    background-image: url("./images/date.svg");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    content: "";
 }
 
-.runtime-title{
-    margin-right: 8px;
-    color: #a6a5a5;
-}
-
-.runtime{
+.movie-duration{
     margin: 0;
     color: #646060;
 }
 
-.category-wrap{
-    display: flex;
-    flex-wrap: wrap;
-    margin-bottom: 15px;
+.movie-duration::before{
+    width: 18px;
+    height: 18px;
+    margin-right: 4px;
+    background-image: url("./images/clock.svg");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    content: "";
+}
+
+.movie-rating{
+    color: #646060;
+}
+
+.movie-rating::before{
+    width: 18px;
+    height: 18px;
+    margin-right: 4px;
+    background-image: url("./images/star.svg");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    content: "";
 }
 
 .category-title{
@@ -134,39 +146,7 @@ body{
 }
 
 .category{
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
     margin: 0;
-    color: #646060;
-}
-
-.language-wrap{
-    display: flex;
-}
-
-.language-title{
-    margin-right: 8px;
-    color: #a6a5a5;
-}
-
-.language{
-    margin: 0;
-    color: #646060;
-}
-
-.genras-wrap{
-    display: flex;
-    align-items: start;
-}
-
-.genras-text{
-    margin-right: 10px;
-}
-
-.genras-info{
-    margin-top: 0;
-    margin-bottom: 0;
     color: #646060;
 }
 
