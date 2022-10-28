@@ -33,12 +33,11 @@ body{
 .search-wrap{
     display: flex;
     align-items: center;
-    margin-bottom: 20px;
 }
 
 .search-input{
     width: 100%;
-    padding: 15px 24px !important;
+    padding: 10px 24px !important;
     border: none;
     border-radius: 8px 0 0 8px;
     background-color: #c0c0c0;
@@ -52,7 +51,7 @@ body{
 
 .search-btn{
     width: 100px;
-    height: 55.5px;
+    height: 45.5px;
     border: none;
     border-radius: 0 8px 8px 0;
     background-color: #ad6a3a;
@@ -160,10 +159,13 @@ body{
     }
 
     .movies-item{
-        /*display: flex;*/
-        /*flex-direction: column;*/
-        /*justify-content: space-between;*/
         max-width: 305px;
+    }
+}
+
+@media only screen and (min-width: 768px){
+    .select-js{
+        width: 25%;
     }
 }
 

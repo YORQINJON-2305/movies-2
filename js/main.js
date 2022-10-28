@@ -1,9 +1,16 @@
+const categories = [];
+
+//Select
+const elSelectCategory = document.querySelector(".select-js");
+const templateOption = document.querySelector(".option-temp").content;
+
+//List
 const elList = document.querySelector(".movies-collection");
 const templateFragment = document.querySelector(".movie-temp").content;
 
 //Search form
 const elSearchForm = document.querySelector(".search-form");
-const elSearchInput = document.querySelector(".search-input");
+const elSearchInput = elSearchForm.querySelector(".search-input");
 
 //Modal
 const elModal = document.querySelector(".modal-js");
@@ -18,7 +25,7 @@ const modalLink = elModal.querySelector(".modal-imdb-link");
 
 const fragment = new DocumentFragment();
 
-const sliceMovies = movies.slice(0, 100);
+const sliceMovies = movies.slice(0, 20);
 
 //Minutni soatga aylantirish
 function getDuration(time){
@@ -34,6 +41,8 @@ function getSplitCategory(text){
 
 //Objectni DOMga chiqarish
 function viewMovie(movies){
+
+    elList.innerHTML = "";
     movies.forEach(movie => {
         templateFragmentClone = templateFragment.cloneNode(true);
 
@@ -52,35 +61,54 @@ function viewMovie(movies){
 }
 
 //Qidirilgan kinoni topish
-elSearchForm.addEventListener("submit", searchFunc)
+elSearchForm.addEventListener("submit", searchFunc);
 
 //Qidirilgan kinoni topish funksiyasi
 function searchFunc(evt){
     evt.preventDefault();
-    const searchInputValue = elSearchInput.value.trim().toUpperCase();
+    const searchInputValue = elSearchInput.value.trim();
+    const regexTitle = new RegExp(searchInputValue, "gi");
+    const searchMovie = movies.filter(item => String(item.Title).match(regexTitle));
+        if(searchMovie.length > 0){
+            viewMovie(searchMovie);
+        }  else{
+            elList.innerHTML = "Movie not found !!!"
+        }
+}
 
-    if (searchInputValue != ""){
-        elList.innerHTML = null;
-        movies.forEach(movie => {
-            const movieName = ""+movie.Title;
-            if (movieName.toUpperCase().indexOf(searchInputValue) > -1 ){
-                templateFragmentClone = templateFragment.cloneNode(true);
+//Category bo'yicha saralash
+elSelectCategory.addEventListener("click", searchCategories)
 
-                templateFragmentClone.querySelector(".movie-img").src = `http://i3.ytimg.com/vi/${movie.ytid}/mqdefault.jpg`;
-                templateFragmentClone.querySelector(".movie-title").textContent = movie.Title;
-                templateFragmentClone.querySelector(".movie-year").textContent = movie.movie_year;
-                templateFragmentClone.querySelector(".movie-rating").textContent = movie.imdb_rating;
-                templateFragmentClone.querySelector(".movie-duration").textContent = getDuration(movie.runtime);
-                templateFragmentClone.querySelector(".category").textContent = getSplitCategory(movie.Categories);
-
-                fragment.appendChild(templateFragmentClone);
-            }
-        });
-        elList.appendChild(fragment);
+//Category bo'yicha saralash funksiyasi
+function searchCategories(){
+    const selectValue = elSelectCategory.value
+    const searchCategory = movies.filter(item => item.Categories.match(selectValue));
+    if (searchCategory.length > 0){
+        viewMovie(searchCategory);
+    }   else{
+        viewMovie(sliceMovies)
     }
-    else {
-        viewMovie(sliceMovies);
-    }
+}
+
+//Categorylarni arrayga push qilib olish
+movies.forEach(allObj => {
+    allObj.Categories.split("|").forEach(allCategories => {
+        if (!categories.includes(allCategories)){
+            categories.push(allCategories);
+        }
+    })
+});
+
+//Push qilingan categorylarni domga chizish
+function renderCategories(){
+    categories.forEach(category => {
+        const templateOptionClone = templateOption.cloneNode(true);
+        templateOptionClone.querySelector(".category-option").textContent = category;
+        templateOptionClone.querySelector(".category-option").value = category;
+
+        fragment.appendChild(templateOptionClone);
+    });
+    elSelectCategory.appendChild(fragment);
 }
 
 //Aynan qaysi object ekanligini topib olish
@@ -108,8 +136,10 @@ function modalInfo(foundMovie){
 //Modalda qolib iframeni srcni tozalab yuborish
 elModal.addEventListener("hide.bs.modal", function(){
     modalIframe.src = "";
-})
+});
 
+
+renderCategories();
 viewMovie(sliceMovies);
 
 
