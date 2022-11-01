@@ -17,11 +17,18 @@
             <div class="title-wrap">
                 <h1 class="title">Movies</h1>
             </div>
-            <div class="mb-3 d-md-flex justify-content-center">
-                <form class="search-form mb-2 mb-md-0 me-md-3" action="#" method="post">
-                    <div class="search-wrap">
-                        <input class="search-input" type="search" minlength="1" maxlength="100" placeholder="Search movies..." required>
+            <div class="mb-3 d-md-flex justify-content-center align-items-center mb-2">
+                <form class="search-form me-md-3" action="#" method="post">
+                    <div class="search-wrap me-2">
+                        <input class="search-input" type="search" placeholder="Search movies...">
                         <button class="search-btn"></button>
+                    </div>
+                </form>
+                <form class="search-year-form" action="#" method="post">
+                    <div class="search-year-wrap d-flex me-2">
+                        <input class="start-year form-control me-2" type="text" placeholder="Start year...">
+                        <input class="end-year form-control" type="text" placeholder="End year...">
+                        <button class="btn btn-success d-none">Search</button>
                     </div>
                 </form>
                 <select class="select-js form-select" aria-label="Movies category select">
