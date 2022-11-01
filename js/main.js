@@ -12,10 +12,8 @@ const templateFragment = document.querySelector(".movie-temp").content;
 //Search form
 const elSearchForm = document.querySelector(".search-form");
 const elSearchInput = elSearchForm.querySelector(".search-input");
-
-const elSearchYearForm = document.querySelector(".search-year-form");
-const elStartYearInput = elSearchYearForm.querySelector(".start-year");
-const elEndYearInput = elSearchYearForm.querySelector(".end-year");
+const elStartYearInput = elSearchForm.querySelector(".start-year");
+const elEndYearInput = elSearchForm.querySelector(".end-year");
 
 //Modal
 const elModal = document.querySelector(".modal-js");
@@ -65,23 +63,6 @@ function viewMovie(movies){
     elList.appendChild(fragment);
 }
 
-elSearchYearForm.addEventListener("submit", searchYear)
-
-function searchYear(evt){
-    evt.preventDefault();
-    const startInputValue = Number(elStartYearInput.value.trim())
-    const endInputValue = Number(elEndYearInput.value.trim());
-    console.log(startInputValue, endInputValue  )
-    const searchYearMovie = fullMovies.filter(item => ((startInputValue <= item.year && endInputValue >= item.year) || (startInputValue == "" && endInputValue >= item.year) || (startInputValue <= item.year && endInputValue == "")));
-    if (searchYearMovie.length > 0){
-        viewMovie(searchYearMovie);
-    }  else {
-        elList.innerHTML = "Movie not found !!!"
-
-    }
-}
-
-
 //Qidirilgan kinoni topish
 elSearchForm.addEventListener("submit", searchFunc);
 
@@ -89,20 +70,16 @@ elSearchForm.addEventListener("submit", searchFunc);
 function searchFunc(evt){
     evt.preventDefault();
     const searchInputValue = elSearchInput.value.trim();
+    const startInputValue = Number(elStartYearInput.value.trim())
+    const endInputValue = Number(elEndYearInput.value.trim());
 
     const regexTitle = new RegExp(searchInputValue, "gi");
-    const searchMovie = fullMovies.filter(item => item.title.match(regexTitle));
+    const searchMovie = fullMovies.filter(item => item.title.match(regexTitle) && ((startInputValue <= item.year && endInputValue >= item.year) || (startInputValue == "" && endInputValue >= item.year) || (startInputValue <= item.year && endInputValue == "")));
         if(searchMovie.length > 0){
             viewMovie(searchMovie);
         }  else{
             elList.innerHTML = "Movie not found !!!"
         }
-    // const searchYear = fullMovies.filter(item => );
-    // if(searchYear.length > 0){
-    //     viewMovie(searchYear);
-    // }  else{
-    //     elList.innerHTML = "Movie not found !!!"
-    // }
 }
 
 
