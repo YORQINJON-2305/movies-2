@@ -18,20 +18,30 @@
                 <h1 class="title">Movies</h1>
             </div>
             <div class="mb-3 d-md-flex justify-content-center align-items-center mb-2">
-                <form class="search-form me-md-3 d-flex align-items-center" action="#" method="post">
-                    <div class="search-wrap me-2">
-                        <input class="search-input" type="search" placeholder="Search movies...">
-                        <button class="search-btn"></button>
+                <form class="search-form align-items-center d-md-flex" action="#" method="post">
+                    <div class="search-wrap mb-2 mb-md-0 me-md-2">
+                        <input class="search-input form-control" type="search" placeholder="Search movies...">
                     </div>
-                    <div class="search-year-wrap d-flex me-2">
+                    <div class="search-year-wrap d-flex mb-2 mb-md-0 me-md-2">
                         <input class="start-year form-control me-2" type="text" placeholder="Start year...">
                         <input class="end-year form-control" type="text" placeholder="End year...">
                     </div>
+                    <select class="sort-select w-auto form-select mb-2 mb-md-0 me-md-2">
+                        <option hidden>Sort</option>
+                        <option value="a-z">A-z</option>
+                        <option value="z-a">Z-a</option>
+                        <option value="min-rating">Min-rating</option>
+                        <option value="max-rating">Max-rating</option>
+                        <option value="start-year">Start-year</option>
+                        <option value="end-year">End-year</option>
+                        <option value="min-duration">Min-duration</option>
+                        <option value="max-duration">Max-duration</option>
+                    </select>
+                    <select class="select-js form-select mb-2 mb-md-0 me-md-2" aria-label="Movies category select">
+                        <option value="All" class="option-category" selected>All</option>
+                    </select>
+                    <button class="btn btn-primary">Submit</button>
                 </form>
-
-                <select class="select-js form-select" aria-label="Movies category select">
-                    <option value="All" class="option-category" selected>All</option>
-                </select>
             </div>
                 <div class="movies-collection">
                     <img class="mx-auto" src="./images/loader.svg" alt="Loading page" width="100" height="100">
