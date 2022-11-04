@@ -26,20 +26,22 @@
                         <input class="start-year form-control me-2" type="text" placeholder="Start year...">
                         <input class="end-year form-control" type="text" placeholder="End year...">
                     </div>
-                    <select class="sort-select w-auto form-select mb-2 mb-md-0 me-md-2">
-                        <option hidden>Sort</option>
-                        <option value="a-z">A-z</option>
-                        <option value="z-a">Z-a</option>
-                        <option value="min-rating">Min-rating</option>
-                        <option value="max-rating">Max-rating</option>
-                        <option value="start-year">Start-year</option>
-                        <option value="end-year">End-year</option>
-                        <option value="min-duration">Min-duration</option>
-                        <option value="max-duration">Max-duration</option>
-                    </select>
-                    <select class="select-js form-select mb-2 mb-md-0 me-md-2" aria-label="Movies category select">
-                        <option value="All" class="option-category" selected>All</option>
-                    </select>
+                    <div class="d-flex flex-column mb-2 flex-md-row mb-md-0">
+                        <select class="sort-select w-auto form-select mb-2 mb-md-0 me-md-2">
+                            <option hidden>Sort</option>
+                            <option value="a-z">A-z</option>
+                            <option value="z-a">Z-a</option>
+                            <option value="min-rating">Min-rating</option>
+                            <option value="max-rating">Max-rating</option>
+                            <option value="start-year">Start-year</option>
+                            <option value="end-year">End-year</option>
+                            <option value="min-duration">Min-duration</option>
+                            <option value="max-duration">Max-duration</option>
+                        </select>
+                        <select class="select-js form-select w-auto me-md-2" aria-label="Movies category select">
+                            <option value="all" class="option-category" selected>All</option>
+                        </select>
+                    </div>
                     <button class="btn btn-primary">Submit</button>
                 </form>
             </div>

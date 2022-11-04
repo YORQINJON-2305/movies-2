@@ -66,43 +66,34 @@ function viewMovie(movies){
 //Qidirilgan kinoni topish
 elSearchForm.addEventListener("submit", searchFunc);
 
+function showShowFilterArr(regex){
+    const startInputValue = Number(elStartYearInput.value.trim())
+    const endInputValue = Number(elEndYearInput.value.trim());
+    const searchMovie = fullMovies.filter(item => {
+        const filterArr = item.title.match(regex) &&
+            (startInputValue == "" || item.year >= startInputValue) && (endInputValue == "" || item.year <= endInputValue) &&
+            (elSelectCategory.value == "all" || item.categories.includes(elSelectCategory.value));
+        return filterArr;
+    });
+    return searchMovie;
+}
+
 //Qidirilgan kinoni topish funksiyasi
 function searchFunc(evt){
     evt.preventDefault();
     const searchInputValue = elSearchInput.value.trim();
-    if(searchInputValue == ""){
-        viewMovie(sliceMovies)
-    }
-    const startInputValue = Number(elStartYearInput.value.trim())
-    const endInputValue = Number(elEndYearInput.value.trim());
     const regexTitle = new RegExp(searchInputValue, "gi");
     const sortSelectValue = elSortSelect.value;
-
-
     sortedFunction(fullMovies, sortSelectValue);
 
-    const searchMovie = fullMovies.filter(item => item.title.match(regexTitle) && ((startInputValue <= item.year && endInputValue >= item.year) || (startInputValue == "" && endInputValue >= item.year) || (startInputValue <= item.year && endInputValue == "")));
+    const searchMovie = showShowFilterArr(regexTitle)
+
         if(searchMovie.length > 0){
             viewMovie(searchMovie);
         }  else{
             elList.innerHTML = "Movie not found !!!"
         }
 }
-
-//Category bo'yicha saralash
-elSelectCategory.addEventListener("click", searchCategories)
-
-//Category bo'yicha saralash funksiyasi
-function searchCategories(){
-    const selectValue = elSelectCategory.value;
-    const searchCategory = fullMovies.filter(item => item.categories.match(selectValue));
-    if (searchCategory.length > 0){
-        viewMovie(searchCategory);
-        sortedFunction(searchCategory, sortSelectValue);
-    }   else{
-        viewMovie(sliceMovies);
-    }
-};
 
 //Categorylarni arrayga push qilib olish
 fullMovies.forEach(allObj => {
@@ -127,25 +118,19 @@ function renderCategories(){
 
 //Sortlash funksiyasi
 function sortedFunction(movies, select){
+
     if(select === "a-z"){
         movies.sort((a,b) => {
-            if(a.title > b.title){
-                return 1
-            }  else if(a.title < b.title){
-                return -1
-            }  else{
-                return 0
-            }
+            if(a.title.toLowerCase() > b.title.toLowerCase()) return 1;
+              else if(a.title.toLowerCase() < b.title.toLowerCase()) return -1;
+              return 0;
         });
+
     } else if(select === "z-a"){
         movies.sort((a,b) => {
-            if(a.title > b.title){
-                return -1
-            }  else if(a.title < b.title){
-                return 1
-            }  else{
-                return 0
-            }
+            if(a.title.toLowerCase() > b.title.toLowerCase()) return -1;
+              else if(a.title.toLowerCase() < b.title.toLowerCase()) return 1;
+                return 0;
         })
     };
 
@@ -173,7 +158,7 @@ elList.addEventListener("click", function(evt){
     const getTargetEl = evt.target;
     if(getTargetEl.matches(".info-btn")){
         const btnId = getTargetEl.dataset.ytid;
-        const foundMovie = fullMovies.find(movie => movie.ytid == btnId);
+        const foundMovie = fullMovies.find(movie => movie.ytid === btnId);
         modalInfo(foundMovie);
     }
 })
