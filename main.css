@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+::-webkit-scrollbar{
+    width: 0;
+}
+
 body{
     margin: 0;
     font-family: 'Roboto Slab', serif;
@@ -15,6 +19,119 @@ body{
     max-width: 1240px;
     margin: 0 auto;
     padding: 0 20px;
+}
+
+.bookmark-btn{
+    position: fixed;
+    top: 0;
+    right: 0px;
+    padding: 10px 5px 15px 5px;
+    border-radius: 0 0 50px 50px !important;
+}
+
+.bookmark-btn-text{
+    font-size: 10px;
+}
+
+.bookmark-icon{
+    width: 18px;
+    height: 23px;
+    animation-name: icon;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    animation-direction: alternate;
+    animation-duration: 0.5s;
+}
+
+
+.bookmark-item{
+    width: 100%;
+    max-width: 280px;
+    margin-bottom: 20px;
+    margin-right: 10px;
+    padding: 17px 12px;
+    border: 1px solid #3b3b3b;
+    border-radius: 6px;
+    background-color: #11110f;
+    box-shadow: 0 0 15px 0 #646060;
+}
+
+.movie-title-bookmark{
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #ad6a3a;
+}
+
+.movie-year-bookmark{
+    color: #646060;
+}
+
+.movie-year-bookmark::before{
+    width: 18px;
+    height: 18px;
+    margin-right: 4px;
+    background-image: url("./images/date.svg");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    content: "";
+}
+
+.movie-duration-bookmark{
+    margin: 0;
+    color: #646060;
+}
+
+.movie-duration-bookmark::before{
+    width: 18px;
+    height: 18px;
+    margin-right: 4px;
+    background-image: url("./images/clock.svg");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    content: "";
+}
+
+.movie-rating-bookmark{
+    color: #646060;
+}
+
+.movie-rating-bookmark::before{
+    width: 18px;
+    height: 18px;
+    margin-right: 4px;
+    background-image: url("./images/star.svg");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    content: "";
+}
+
+.category-bookmark{
+    margin: 0;
+    color: #646060;
+}
+
+.btn-bookmark{
+    width: 22px;
+    height: 33px;
+    background-image: url("./images/bookmark.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    cursor: pointer;
+}
+
+@keyframes icon {
+    from{
+        transform: translateY(0px);
+    }
+
+    to{
+        transform: translateY(7px);
+    }
 }
 
 .title-wrap{
@@ -54,19 +171,12 @@ body{
     margin-bottom: 20px;
     font-size: 24px;
     color: #ad6a3a;
+    text-transform: capitalize;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-.movie-about{
-    margin-bottom: 15px;
-}
-
- .about-title{
-     color: #a6a5a5;
-}
-
- .info-text{
-     color: #646060;
- }
 
  .movie-year{
      color: #646060;
@@ -162,5 +272,14 @@ body{
 
     .movies-item{
         max-width: 280px;
+    }
+
+    .bookmark-btn-text{
+        font-size: 16px;
+    }
+
+    .bookmark-icon{
+        width: 25px;
+        height: 30px;
     }
 }

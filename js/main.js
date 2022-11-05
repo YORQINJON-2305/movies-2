@@ -1,4 +1,6 @@
 const categories = [];
+const localBookmark = JSON.parse(localStorage.getItem("bookmark"));
+const bookmark = localBookmark || [];
 
 //Select
 const elSortSelect = document.querySelector(".sort-select");
@@ -8,6 +10,11 @@ const templateOption = document.querySelector(".option-temp").content;
 //List
 const elList = document.querySelector(".movies-collection");
 const templateFragment = document.querySelector(".movie-temp").content;
+
+//Bookmark
+const elBookmarkList = document.querySelector(".bookmark-list");
+const elTemplateBookmark = document.querySelector(".bookmark-temp").content;
+
 
 //Search form
 const elSearchForm = document.querySelector(".search-form");
@@ -30,6 +37,7 @@ const fragment = new DocumentFragment();
 
 const sliceMovies = fullMovies.slice(0, 20);
 
+
 //Minutni soatga aylantirish
 function getDuration(time){
     const hour = Math.floor(time / 60);
@@ -43,19 +51,24 @@ function getSplitCategory(text){
 }
 
 //Objectni DOMga chiqarish
-function viewMovie(movies){
+function viewMovie(movies, regex=""){
 
     elList.innerHTML = "";
     movies.forEach(movie => {
         templateFragmentClone = templateFragment.cloneNode(true);
 
         templateFragmentClone.querySelector(".movie-img").src = movie.yt_img_md;
+        if(regex.source != "(?:)" && regex){
+        templateFragmentClone.querySelector(".movie-title").innerHTML = movie.title.replace(regex, `<mark class="bg-warning">${regex.source.toLowerCase()}</mark>`)
+        } else {
         templateFragmentClone.querySelector(".movie-title").textContent = movie.title;
+        }
         templateFragmentClone.querySelector(".movie-year").textContent = movie.year;
         templateFragmentClone.querySelector(".movie-rating").textContent = movie.imdb_rating;
         templateFragmentClone.querySelector(".movie-duration").textContent = getDuration(movie.runtime);
         templateFragmentClone.querySelector(".category").textContent = getSplitCategory(movie.categories);
         templateFragmentClone.querySelector(".info-btn").dataset.ytid = movie.ytid;
+        templateFragmentClone.querySelector(".btn-bookmark").dataset.id = movie.imdb_id
 
         fragment.appendChild(templateFragmentClone);
     })
@@ -89,7 +102,7 @@ function searchFunc(evt){
     const searchMovie = showShowFilterArr(regexTitle)
 
         if(searchMovie.length > 0){
-            viewMovie(searchMovie);
+            viewMovie(searchMovie, regexTitle);
         }  else{
             elList.innerHTML = "Movie not found !!!"
         }
@@ -153,6 +166,28 @@ function sortedFunction(movies, select){
     }
 }
 
+
+//Bookmark
+function renderBookmark(arr, list){
+    list.innerHTML = "";
+    arr.forEach(movie => {
+        const templateBookmarkClone = elTemplateBookmark.cloneNode(true);
+
+        templateBookmarkClone.querySelector(".movie-img-bookmark").src = movie.yt_img_md;
+        templateBookmarkClone.querySelector(".movie-title-bookmark").textContent = movie.title;
+        templateBookmarkClone.querySelector(".movie-year-bookmark").textContent = movie.year;
+        templateBookmarkClone.querySelector(".movie-rating-bookmark").textContent = movie.imdb_rating;
+        templateBookmarkClone.querySelector(".movie-duration-bookmark").textContent = getDuration(movie.runtime);
+        templateBookmarkClone.querySelector(".category-bookmark").textContent = getSplitCategory(movie.categories);
+        templateBookmarkClone.querySelector(".bookmark-remove").dataset.id = movie.imdb_id;
+
+        fragment.appendChild(templateBookmarkClone);
+    });
+    localStorage.setItem("bookmark", JSON.stringify(bookmark));
+    elBookmarkList.appendChild(fragment);
+}
+
+
 //Aynan qaysi object ekanligini topib olish
 elList.addEventListener("click", function(evt){
     const getTargetEl = evt.target;
@@ -161,7 +196,30 @@ elList.addEventListener("click", function(evt){
         const foundMovie = fullMovies.find(movie => movie.ytid === btnId);
         modalInfo(foundMovie);
     }
+    if(getTargetEl.matches(".btn-bookmark")){
+        const btnId = getTargetEl.dataset.id;
+        const foundMovie = fullMovies.find(movie => movie.imdb_id === btnId);
+        if(!bookmark.includes(foundMovie)){
+          bookmark.push(foundMovie);
+          renderBookmark(bookmark, elBookmarkList);
+        }
+    }
+
+    localStorage.setItem("bookmark", JSON.stringify(bookmark));
+});
+
+elBookmarkList.addEventListener("click", function (evt){
+    if(evt.target.matches(".bookmark-remove")){
+        const getBtnId = evt.target.dataset.id;
+        const foundMovie = bookmark.findIndex(movie => movie.imdb_id === getBtnId);
+
+        bookmark.splice(foundMovie, 1);
+        renderBookmark(bookmark, elBookmarkList);
+    }
+        localStorage.setItem("bookmark", JSON.stringify(bookmark));
 })
+
+
 
 //Topilgan objectni modalga chizish
 function modalInfo(foundMovie){
@@ -180,7 +238,7 @@ elModal.addEventListener("hide.bs.modal", function(){
     modalIframe.src = "";
 });
 
-
+renderBookmark(bookmark, elBookmarkList)
 renderCategories();
 viewMovie(sliceMovies);
 

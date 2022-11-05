@@ -53,6 +53,31 @@
 </section>
 
 
+<!-- O F F C A N V A S -->
+<button class="bookmark-btn btn btn-primary " type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop">
+    <div class="d-flex flex-xl-column">
+        <p class="bookmark-btn-text mb-0 me-1">B</p>
+        <p class="bookmark-btn-text mb-0 me-1">o</p>
+        <p class="bookmark-btn-text mb-0 me-1">o</p>
+        <p class="bookmark-btn-text mb-0 me-1">k</p>
+        <p class="bookmark-btn-text mb-0 me-1">m</p>
+        <p class="bookmark-btn-text mb-0 me-1">a</p>
+        <p class="bookmark-btn-text mb-0 me-1">r</p>
+        <p class="bookmark-btn-text mb-2 ">k</p>
+    </div>
+    <img class="bookmark-icon" src="./images/arrowdown.svg" alt="Arrow dropdown">
+</button>
+
+<div class="offcanvas offcanvas-top h-75" tabindex="-1" id="offcanvasTop" aria-labelledby="offcanvasTopLabel">
+    <div class="offcanvas-header justify-content-end py-3">
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body h-auto">
+        <ul class="bookmark-list d-flex flex-wrap justify-content-center list-unstyled mb-0"></ul>
+    </div>
+</div>
+
+
 <!-- M O D A L -->
 <div class="modal-js modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-xl">
@@ -99,13 +124,39 @@
                 <time class="category"></time>
             </div>
         </div>
-        <button class="info-btn btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal" type="button">More info</button>
+        <div class="d-flex justify-content-between align-items-center">
+            <button class="info-btn btn btn-success px-5" data-bs-toggle="modal" data-bs-target="#exampleModal" type="button">More info</button>
+            <span class="btn-bookmark"></span>
+        </div>
     </div>
 </template>
 
 <!-- T E M P L A T E   O P T I O N -->
 <template class="option-temp">
     <option class="category-option" value></option>
+</template>
+
+
+<!-- B O O K M A R K   T E M P L A T E -->
+<template class="bookmark-temp">
+    <li class="bookmark-item d-flex flex-column justify-content-between">
+        <div class="mb-2">
+            <img class="movie-img-bookmark img-fluid mb-3" src="" alt="">
+            <h2 class="movie-title-bookmark"></h2>
+            <div class="d-flex align-items-center justify-content-between mb-2">
+                <span class="movie-rating-bookmark d-flex align-items-center"></span>
+                <span class="movie-year-bookmark d-flex align-items-center"></span>
+                <span class="movie-duration-bookmark d-flex align-items-center"></span>
+            </div>
+            <div class="category-wrap m-2">
+                <strong class="category-title">Category:</strong>
+                <time class="category-bookmark"></time>
+            </div>
+        </div>
+        <div class="d-flex justify-content-end">
+            <button class="bookmark-remove btn btn-danger">Remove</button>
+        </div>
+    </li>
 </template>
 
 
